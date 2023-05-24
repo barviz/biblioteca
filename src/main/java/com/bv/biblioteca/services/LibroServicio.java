@@ -1,5 +1,6 @@
 package com.bv.biblioteca.services;
 
+import com.bv.biblioteca.exceptions.MiExcepcion;
 import com.bv.biblioteca.models.Autor;
 import com.bv.biblioteca.models.Editorial;
 import com.bv.biblioteca.models.Libro;
@@ -26,7 +27,9 @@ public class LibroServicio {
     private EditorialRepositorio editorialRepositorio;
 
     @Transactional
-    public void crearLibro(Long isbn, String titulo, Integer ejemplares, String idAutor, String idEditorial) {
+    public void crearLibro(Long isbn, String titulo, Integer ejemplares, String idAutor, String idEditorial) throws MiExcepcion {
+
+        validar(isbn, titulo, ejemplares, idAutor, idEditorial);
 
         Autor autor = autorRepositorio.findById(idAutor).get();
         Editorial editorial = editorialRepositorio.findById(idEditorial).get();
@@ -54,7 +57,9 @@ public class LibroServicio {
     }
 
     @Transactional
-    public void actualizarLibro(Long isbn, String titulo, String idAutor, String idEditorial, Integer ejemplares){
+    public void actualizarLibro(Long isbn, String titulo, Integer ejemplares, String idAutor, String idEditorial) throws MiExcepcion {
+
+        validar(isbn, titulo, ejemplares, idAutor, idEditorial);
 
         Optional<Libro> respuestaLibro = libroRepositorio.findById(isbn);
         Optional<Autor> respuestaAutor = autorRepositorio.findById(idAutor);
@@ -83,6 +88,29 @@ public class LibroServicio {
             libroRepositorio.save(libro);
         }
 
+    }
+
+    private void validar(Long isbn, String titulo,Integer ejemplares,  String idEditorial, String idAutor) throws MiExcepcion {
+
+        if (isbn == null) {
+            throw new MiExcepcion("El isbn no puede ser nulo");
+        }
+
+        if (titulo.isEmpty() || titulo == null) {
+            throw new MiExcepcion("El titulo no puede ser nulo o estar vacio");
+        }
+
+        if (ejemplares == null) {
+            throw new MiExcepcion("El numero de ejemplares no puede ser nulo");
+        }
+
+        if (idAutor.isEmpty() || idAutor == null) {
+            throw new MiExcepcion("El autor no puede ser nulo o estar vacio");
+        }
+
+        if (idEditorial.isEmpty() || idEditorial == null) {
+            throw new MiExcepcion("La editorial no puede ser nula o estar vacia");
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.bv.biblioteca.services;
 
+import com.bv.biblioteca.exceptions.MiExcepcion;
 import com.bv.biblioteca.models.Autor;
 import com.bv.biblioteca.repositories.AutorRepositorio;
 import jakarta.transaction.Transactional;
@@ -17,7 +18,9 @@ public class AutorServicio {
     private AutorRepositorio autorRepositorio;
 
     @Transactional
-    public void crearAutor(String nombre){
+    public void crearAutor(String nombre)  throws MiExcepcion {
+
+        validar(nombre);
 
         Autor autor = new Autor();
 
@@ -37,7 +40,9 @@ public class AutorServicio {
     }
 
     @Transactional
-    public void actualizarAutor(String id, String nombre) {
+    public void actualizarAutor(String id, String nombre) throws MiExcepcion{
+
+        validar(nombre);
 
         Optional<Autor> respuesta = autorRepositorio.findById(id);
 
@@ -48,6 +53,13 @@ public class AutorServicio {
             autor.setNombre(nombre);
 
             autorRepositorio.save(autor);
+        }
+    }
+
+    public void validar(String nombre) throws MiExcepcion {
+
+        if (nombre.isEmpty() || nombre == null) {
+            throw new MiExcepcion("El nombre no puede ser nulo o estar vacio");
         }
     }
 }
