@@ -1,6 +1,7 @@
 package com.bv.biblioteca.services;
 
 
+import com.bv.biblioteca.exceptions.MiExcepcion;
 import com.bv.biblioteca.models.Autor;
 import com.bv.biblioteca.models.Editorial;
 import com.bv.biblioteca.repositories.EditorialRepositorio;
@@ -19,7 +20,9 @@ public class EditorialServicio {
     private EditorialRepositorio editorialRepositorio;
 
     @Transactional
-    public void crearEditorial(String nombre){
+    public void crearEditorial(String nombre) throws MiExcepcion {
+
+        validar(nombre);
 
         Editorial editorial = new Editorial();
 
@@ -39,7 +42,9 @@ public class EditorialServicio {
     }
 
     @Transactional
-    public void actualizarEditorial(String id, String nombre) {
+    public void actualizarEditorial(String id, String nombre) throws MiExcepcion {
+
+        validar(nombre);
 
         Optional<Editorial> respuesta = editorialRepositorio.findById(id);
 
@@ -53,5 +58,12 @@ public class EditorialServicio {
 
         }
 
+    }
+
+    public void validar(String nombre) throws MiExcepcion {
+
+        if (nombre.isEmpty() || nombre == null) {
+            throw new MiExcepcion("El nombre no puede ser nulo o estar vacio");
+        }
     }
 }

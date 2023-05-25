@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Biblioteca</title>
@@ -12,6 +12,16 @@
     <h1>Agregar Autor</h1>
   </div>
 </header>
+
+<div th:if="${exito != null}" class="alert alert-dismissible alert-success">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Genial!</strong><p th:text="${exito}"></p>
+</div>
+
+<div th:if="${error != null}" class="alert alert-dismissible alert-danger">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Mmm...</strong><p th:text="${error}"></p>
+</div>
 
 <div class="container">
   <form  action="/autor/registro" method="POST">
