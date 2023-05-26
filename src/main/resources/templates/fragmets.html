@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/}">Biblioteca</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Autor</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/autor/lista}">Lista de Autores</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" th:href="@{/autor/registrar}">Agregar nuevo Autor</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Editorial</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/editorial/lista}">Lista de Editoriales</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" th:href="@{/editorial/registrar}">Agregar nueva Editorial</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Libros</a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" th:href="@{/libro/lista}">Lista de Libros</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" th:href="@{/libro/registrar}">Agregar nuevo Libro</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer th:fragment="footer" class="footer py-3 bg-dark fixed-bottom">
+  <div class="container d-flex justify-content-center">
+    <span class="text-muted">&copy; Bárbara Vizgarra - 2023</span>
+  </div>
+</footer>
+</html>
