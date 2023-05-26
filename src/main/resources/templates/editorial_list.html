@@ -20,12 +20,16 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Nombre</th>
+      <th scope="col">Acciones</th>
     </tr>
     </thead>
     <tbody th:each="editorial : ${editoriales}">
     <tr class="table-light">
       <th scope="row" th:text="${editorial.id}"></th>
       <td th:text="${editorial.nombre}"></td>
+      <td>
+        <a th:href="@{/editorial/actualizar/__${editorial.id}__}"><button type="button" class="btn btn-primary btn-sm">Actualizar</button></a>
+      </td>
     </tr>
     </tbody>
   </table>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.3/slate/bootstrap.min.css" integrity="sha512-GixPbJydZH3yyD23SgcC/i/FIhLb+0F26ABBvEg9ejj90hYuXXjPphWTWTX5dIuolObna6iXz1nr5nog6Dex7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Biblioteca</title>
+</head>
+<body>
+<header>
+    <div class="container mt-5">
+        <h1>Actualizar Libro</h1>
+    </div>
+</header>
+
+<div class="container mb-5">
+
+    <form th:action="@{/libro/actualizar/__${libro.isbn}__}" method="POST">
+
+        <input hidden th:value="${isbn}" name="isbn">
+
+        <div th:if="${exito != null}" class="alert alert-dismissible alert-success">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Genial!</strong><p th:text="${exito}"></p>
+        </div>
+
+        <div th:if="${error != null}" class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Mmm...</strong><p th:text="${error}"></p>
+        </div>
+
+        <div class="form-group">
+            <label class="col-form-label mt-4" for="inputDefault2">Nombre del Libro:</label>
+            <input th:value="${libro.titulo}" type="text" name="titulo" class="form-control" id="inputDefault2">
+        </div>
+        <div class="form-group">
+            <label class="col-form-label mt-4" for="inputDefault3">Cantidad de ejemplares:</label>
+            <input th:value="${libro.ejemplares}" type="number" name="ejemplares" class="form-control" id="inputDefault3">
+        </div>
+        <div class="form-group">
+            <label for="exampleSelect1" class="form-label mt-4">Seleccionar Autor/<a th:href="@{/autor/registrar}">Nuevo Autor</a></label>
+            <select class="form-select" name="idAutor" id="exampleSelect1">
+                <option th:each="autor : ${autores}" th:value = "${autor.id}" th:text = "${autor.nombre}" />
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label for="exampleSelect1" class="form-label mt-4">Seleccionar Editorial/<a th:href="@{/editorial/registrar}">Nuevo Editorial</a></label>
+            <select class="form-select" name="idEditorial" id="exampleSelect2">
+                <option th:each="editorial: ${editoriales}" th:value = "${editorial.id}" th:text = "${editorial.nombre}" />
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2 mb-2">Guardar</button>
+    </form>
+</div>
+</body>
+</html>

@@ -39,6 +39,10 @@ public class AutorServicio {
         return autores;
     }
 
+    public Autor getOne(String id) {
+        return autorRepositorio.getOne(id);
+    }
+
     @Transactional
     public void actualizarAutor(String id, String nombre) throws MiExcepcion{
 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.3/slate/bootstrap.min.css" integrity="sha512-GixPbJydZH3yyD23SgcC/i/FIhLb+0F26ABBvEg9ejj90hYuXXjPphWTWTX5dIuolObna6iXz1nr5nog6Dex7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<header>
+    <div class="container mt-5">
+        <h1>Actualizar Editorial</h1>
+    </div>
+</header>
+
+<div th:if="${error != null}" class="alert alert-dismissible alert-danger">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Mmm...</strong><p th:text="${error}"></p>
+</div>
+
+<div th:if="${exito != null}" class="alert alert-dismissible alert-success">
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <strong>Genial!</strong><p th:text="${exito}"></p>
+</div>
+
+<div class="container">
+    <form th:action="@{/editorial/actualizar/__${editorial.id}__}" method="POST">
+        <div class="form-group">
+            <input hidden th:value="${id}" name="id">
+            <label class="col-form-label mt-4" for="inputDefault">Nombre de la Editorial:</label>
+            <input th:value="${editorial.nombre}" type="text" name="nombre" class="form-control" id="inputDefault">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+    </form>
+</div>
+
+</body>
+</html>

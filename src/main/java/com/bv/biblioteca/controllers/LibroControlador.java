@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -65,5 +62,39 @@ public class LibroControlador {
         modelo.addAttribute("libros", libros);
 
         return "libro_list.html";
+    }
+
+    @GetMapping("/actualizar/{isbn}")
+    public String actualizar(@PathVariable Long isbn, ModelMap modelo) {
+
+        modelo.put("libro", libroServicio.getOne(isbn));
+
+        List<Autor> autores = autorServicio.listarAutores();
+        List<Editorial> editoriales = editorialServicio.listarEditoriales();
+
+        modelo.addAttribute("autores", autores);
+        modelo.addAttribute("editoriales", editoriales);
+
+        return "libro_update.html";
+    }
+
+    @PostMapping("/actualizar/{isbn}")
+    public String actualizar(@PathVariable Long isbn, String titulo, Integer ejemplares, String idAutor, String idEditorial, ModelMap modelo) {
+
+        try {
+            List<Autor> autores = autorServicio.listarAutores();
+            List<Editorial> editoriales = editorialServicio.listarEditoriales();
+            modelo.addAttribute("autores", autores);
+            modelo.addAttribute("editoriales", editoriales);
+            libroServicio.actualizarLibro(isbn, titulo, ejemplares, idAutor, idEditorial);
+            return "redirect:../lista";
+        } catch (MiExcepcion e) {
+            List<Autor> autores = autorServicio.listarAutores();
+            List<Editorial> editoriales = editorialServicio.listarEditoriales();
+            modelo.put("error", e.getMessage());
+            modelo.addAttribute("autores", autores);
+            modelo.addAttribute("editoriales", editoriales);
+            return "libro_update.html";
+        }
     }
 }

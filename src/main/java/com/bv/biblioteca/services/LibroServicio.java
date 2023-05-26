@@ -56,6 +56,11 @@ public class LibroServicio {
 
     }
 
+    public Libro getOne(Long isbn) {
+        return libroRepositorio.getOne(isbn);
+    }
+
+
     @Transactional
     public void actualizarLibro(Long isbn, String titulo, Integer ejemplares, String idAutor, String idEditorial) throws MiExcepcion {
 

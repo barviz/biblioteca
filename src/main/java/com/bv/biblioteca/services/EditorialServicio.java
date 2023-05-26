@@ -41,6 +41,10 @@ public class EditorialServicio {
         return editoriales;
     }
 
+    public Editorial getOne(String id) {
+        return editorialRepositorio.getOne(id);
+    }
+
     @Transactional
     public void actualizarEditorial(String id, String nombre) throws MiExcepcion {
 

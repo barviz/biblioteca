@@ -23,6 +23,7 @@
       <th scope="col">Ejemplares</th>
       <th scope="col">Autor</th>
       <th scope="col">Editorial</th>
+      <th scope="col">Acciones</th>
     </tr>
     </thead>
     <tbody th:each="libro : ${libros}">
@@ -32,6 +33,9 @@
       <td th:text="${libro.ejemplares}"></td>
       <td th:text="${libro.autor.nombre}"></td>
       <td th:text="${libro.editorial.nombre}"></td>
+      <td>
+        <a th:href="@{/libro/actualizar/__${libro.isbn}__}"><button type="button" class="btn btn-primary btn-sm">Actualizar</button></a>
+      </td>
     </tr>
     </tbody>
   </table>
