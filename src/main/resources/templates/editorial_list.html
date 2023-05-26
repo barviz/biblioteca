@@ -34,6 +34,7 @@
       <td th:text="${editorial.nombre}"></td>
       <td>
         <a th:href="@{/editorial/actualizar/__${editorial.id}__}"><button type="button" class="btn btn-primary btn-sm">Actualizar</button></a>
+        <a th:href="@{/editorial/eliminar/__${editorial.id}__}"><button type="button" class="btn btn-primary btn-sm">Eliminar</button></a>
       </td>
     </tr>
     </tbody>

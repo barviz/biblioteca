@@ -63,4 +63,16 @@ public class AutorControlador {
             return "autor_update.html";
         }
     }
+
+    @RequestMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable String id, ModelMap modelo) {
+
+        try {
+            autorServicio.eliminarAutor(id);
+            return "redirect:../lista";
+        } catch (MiExcepcion e) {
+            modelo.put("error", e.getMessage());
+            return "redirect:../lista";
+        }
+    }
 }

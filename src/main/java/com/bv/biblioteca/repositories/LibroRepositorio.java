@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface LibroRepositorio extends JpaRepository<Libro, Long> {
-
+    //inteface!!! va a heredar de jparepository(nombre de donde entidad de la que va a ser el repo, tipo de dato de la llave primaria)
     @Query("SELECT l FROM Libro l WHERE l.titulo = :titulo")
     public Libro buscarPorTitulo(@Param("titulo") String titulo);
 

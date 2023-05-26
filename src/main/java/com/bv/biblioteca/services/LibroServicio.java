@@ -1,3 +1,8 @@
+/*
+Esta clase tiene la responsabilidad de llevar adelante las funcionalidades necesarias
+para administrar libros (crear, actualizar, consultar y eliminar). (toda la lógica del negocio)
+ */
+
 package com.bv.biblioteca.services;
 
 import com.bv.biblioteca.exceptions.MiExcepcion;
@@ -16,6 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+//va a ejecutar las funcionalidades para que la aplicación cumpla las peticiones que se le pida
 @Service
 public class LibroServicio {
 
@@ -29,11 +35,19 @@ public class LibroServicio {
     @Transactional
     public void crearLibro(Long isbn, String titulo, Integer ejemplares, String idAutor, String idEditorial) throws MiExcepcion {
 
+        //se va transformar los datos recibidos del formulario en una entidad de nuestro sistema
+
+        //antes de persistir hay que validar que los atributos que estén llegando sean válidos
         validar(isbn, titulo, ejemplares, idAutor, idEditorial);
+
+        titulo = titulo.toUpperCase();
 
         Autor autor = autorRepositorio.findById(idAutor).get();
         Editorial editorial = editorialRepositorio.findById(idEditorial).get();
 
+        /*cuando creamos este objeto también se generá un id
+        porque cuando se mapeó los atributos de la entidad se puso que
+        el id del objeto sea generado con una estrategia uuid*/
         Libro libro = new Libro();
 
         libro.setIsbn(isbn);
@@ -43,6 +57,7 @@ public class LibroServicio {
         libro.setAutor(autor);
         libro.setEditorial(editorial);
 
+        //el repositorio va a guardar/almacenar en la base de datos
         libroRepositorio.save(libro);
     }
 
@@ -66,6 +81,7 @@ public class LibroServicio {
 
         validar(isbn, titulo, ejemplares, idAutor, idEditorial);
 
+        //la clase optional permite ver si como respuesta al id me trae el objeto buscado, entonces lo modifico sino devuelve una excepción
         Optional<Libro> respuestaLibro = libroRepositorio.findById(isbn);
         Optional<Autor> respuestaAutor = autorRepositorio.findById(idAutor);
         Optional<Editorial> respuestaEditorial = editorialRepositorio.findById(idEditorial);
@@ -90,11 +106,27 @@ public class LibroServicio {
             libro.setEditorial(editorial);
             libro.setEjemplares(ejemplares);
 
+            //se llama al repositorio para guardar al objeto con sus modificaciiones, lo actualiza
             libroRepositorio.save(libro);
         }
 
     }
 
+    @Transactional
+    public void eliminarLibro(Long isbn) throws MiExcepcion {
+
+        Optional<Libro> respuesta = libroRepositorio.findById(isbn);
+
+        if (respuesta.isPresent()) {
+            libroRepositorio.deleteById(isbn);
+        } else {
+            throw new MiExcepcion("No se encontró el libro");
+        }
+    }
+
+    //método para no repetir la lógica
+    /*si alguno de los datos que se ingresaron no es válido se dispara el error
+    y no se crea la entidad, no se setean los atributos y no se persiste en la base de datos*/
     private void validar(Long isbn, String titulo,Integer ejemplares,  String idEditorial, String idAutor) throws MiExcepcion {
 
         if (isbn == null) {

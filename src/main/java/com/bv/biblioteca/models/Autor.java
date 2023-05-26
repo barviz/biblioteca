@@ -8,9 +8,9 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Autor {
 
-    @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    @Id //toda entidad persistente debe tener un identificador unívoco de ese objeto/entidad
+    @GeneratedValue(generator = "uuid") //se va a crear/guardar para cada objeto en la base de datos
+    @GenericGenerator(name = "uuid", strategy = "uuid2") //genera una cadena de texto que no se va a repetir nunca
     private String id;
     private String nombre;
 

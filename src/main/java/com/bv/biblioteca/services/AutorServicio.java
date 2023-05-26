@@ -22,6 +22,8 @@ public class AutorServicio {
 
         validar(nombre);
 
+        nombre = nombre.toUpperCase();
+
         Autor autor = new Autor();
 
         autor.setNombre(nombre);
@@ -57,6 +59,18 @@ public class AutorServicio {
             autor.setNombre(nombre);
 
             autorRepositorio.save(autor);
+        }
+    }
+
+    @Transactional
+    public void eliminarAutor(String id) throws MiExcepcion {
+
+        Optional<Autor> respuesta = autorRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            autorRepositorio.deleteById(id);
+        } else {
+            throw new MiExcepcion("No se encontró el autor");
         }
     }
 

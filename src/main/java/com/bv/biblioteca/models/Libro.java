@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.Date;
 
+//al marcar esta clase como entidad decimos que es un objeto del cual se quiere persistir sus datos de manera permanente
 @Entity
 public class Libro {
 

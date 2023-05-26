@@ -32,6 +32,7 @@
             <td th:text="${autor.nombre}"></td>
             <td>
                 <a th:href="@{/autor/actualizar/__${autor.id}__}"><button type="button" class="btn btn-primary btn-sm">Actualizar</button></a>
+                <a th:href="@{/autor/eliminar/__${autor.id}__}"><button type="button" class="btn btn-primary btn-sm">Eliminar</button></a>
             </td>
         </tr>
         </tbody>

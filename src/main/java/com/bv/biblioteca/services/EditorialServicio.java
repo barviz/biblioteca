@@ -2,7 +2,6 @@ package com.bv.biblioteca.services;
 
 
 import com.bv.biblioteca.exceptions.MiExcepcion;
-import com.bv.biblioteca.models.Autor;
 import com.bv.biblioteca.models.Editorial;
 import com.bv.biblioteca.repositories.EditorialRepositorio;
 import jakarta.transaction.Transactional;
@@ -23,6 +22,8 @@ public class EditorialServicio {
     public void crearEditorial(String nombre) throws MiExcepcion {
 
         validar(nombre);
+
+        nombre = nombre.toUpperCase();
 
         Editorial editorial = new Editorial();
 
@@ -62,6 +63,18 @@ public class EditorialServicio {
 
         }
 
+    }
+
+    @Transactional
+    public void eliminarEditorial(String id) throws MiExcepcion {
+
+        Optional<Editorial> respuesta = editorialRepositorio.findById(id);
+
+        if (respuesta.isPresent()) {
+            editorialRepositorio.deleteById(id);
+        } else {
+            throw new MiExcepcion("No se encontró la editorial");
+        }
     }
 
     public void validar(String nombre) throws MiExcepcion {

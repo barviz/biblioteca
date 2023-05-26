@@ -66,4 +66,16 @@ public class EditorialControlador {
             return "editorial_update.html";
         }
     }
+
+    @RequestMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable String id, ModelMap modelo) {
+
+        try {
+            editorialServicio.eliminarEditorial(id);
+            return "redirect:../lista";
+        } catch (MiExcepcion e) {
+            modelo.put("error", e.getMessage());
+            return "redirect:../lista";
+        }
+    }
 }
