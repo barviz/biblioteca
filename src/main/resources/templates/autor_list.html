@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.3/slate/bootstrap.min.css" integrity="sha512-GixPbJydZH3yyD23SgcC/i/FIhLb+0F26ABBvEg9ejj90hYuXXjPphWTWTX5dIuolObna6iXz1nr5nog6Dex7w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+<header>
+    <div class="container mt-5">
+        <h1>Autores</h1>
+    </div>
+</header>
+
+
+<div class="container mt-5">
+    <table class="table table-dark">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+        </tr>
+        </thead>
+        <tbody th:each="autor : ${autores}">
+        <tr class="table-light">
+            <th scope="row" th:text="${autor.id}"></th>
+            <td th:text="${autor.nombre}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

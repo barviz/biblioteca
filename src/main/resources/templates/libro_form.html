@@ -12,9 +12,7 @@
   </div>
 </header>
 
-
-
-<div class="container">
+<div class="container mb-5">
 
   <form  action="/libro/registro" method="POST">
 
@@ -53,8 +51,7 @@
         <option th:each="editorial: ${editoriales}" th:value = "${editorial.id}" th:text = "${editorial.nombre}" />
       </select>
     </div>
-    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
-    <button type="button" class="btn btn-dark mt-2">Volver</button>
+    <button type="submit" class="btn btn-primary mt-2 mb-2">Guardar</button>
   </form>
 </div>
 </body>

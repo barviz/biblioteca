@@ -1,6 +1,7 @@
 package com.bv.biblioteca.controllers;
 
 import com.bv.biblioteca.exceptions.MiExcepcion;
+import com.bv.biblioteca.models.Autor;
 import com.bv.biblioteca.services.AutorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/autor")
@@ -33,5 +36,14 @@ public class AutorControlador {
             return "autor_form.html";
         }
         return "index.html";
+    }
+
+    @GetMapping("/lista")
+    public String lista(ModelMap modelo) {
+
+        List<Autor> autores = autorServicio.listarAutores();
+        modelo.addAttribute("autores", autores);
+
+        return "autor_list.html";
     }
 }

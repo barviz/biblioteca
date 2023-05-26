@@ -3,6 +3,7 @@ package com.bv.biblioteca.controllers;
 import com.bv.biblioteca.exceptions.MiExcepcion;
 import com.bv.biblioteca.models.Autor;
 import com.bv.biblioteca.models.Editorial;
+import com.bv.biblioteca.models.Libro;
 import com.bv.biblioteca.services.AutorServicio;
 import com.bv.biblioteca.services.EditorialServicio;
 import com.bv.biblioteca.services.LibroServicio;
@@ -47,9 +48,22 @@ public class LibroControlador {
             libroServicio.crearLibro(isbn, titulo, ejemplares, idAutor, idEditorial);
             modelo.put("exito", "El libro se guardó correctamente");
         } catch (MiExcepcion e) {
+            List<Autor> autores = autorServicio.listarAutores();
+            List<Editorial> editoriales = editorialServicio.listarEditoriales();
+            modelo.addAttribute("autores", autores);
+            modelo.addAttribute("editoriales", editoriales);
             modelo.put("error", e.getMessage());
             return "libro_form.html";
         }
         return "index.html";
+    }
+
+    @GetMapping("/lista")
+    public String lista(ModelMap modelo) {
+
+        List<Libro> libros = libroServicio.listarLibros();
+        modelo.addAttribute("libros", libros);
+
+        return "libro_list.html";
     }
 }
