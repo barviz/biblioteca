@@ -40,6 +40,8 @@ public class PortalControlador {
         } catch (MiExcepcion e) {
 
             modelo.put("error", e.getMessage());
+            modelo.put("nombre", nombre);
+            modelo.put("email", email);
 
             return "registro.html";
         }
