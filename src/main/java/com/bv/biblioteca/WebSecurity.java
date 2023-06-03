@@ -33,6 +33,7 @@ public class WebSecurity {
 
         http
                 .authorizeRequests()
+                .requestMatchers("/admin/*").hasRole("ADMIN")
                 .requestMatchers("/css/*", "/js/*", "/img/*", "/**").permitAll()
                 .and()
                 .formLogin()
@@ -45,7 +46,7 @@ public class WebSecurity {
                 .and()
                 .logout()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
                 .permitAll()
                 .and()
                 .csrf().disable();
